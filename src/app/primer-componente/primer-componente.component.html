@@ -1,0 +1,58 @@
+<h1 ngClass="text-success">primer-componente works!</h1>
+
+continente:<select (change)="rellenaPaises()" [(ngModel)]="continente">
+  <option value="0" disabled>Selecciona Continente....</option>
+  <option value="{{ continente }}" *ngFor="let continente of regiones">
+    {{ continente }}
+  </option>
+</select>
+Pais:
+<select>
+  <option value="0">Selecciona pais....</option>
+  <option value="{{ pais }}" *ngFor="let pais of paises">{{ pais }}</option>
+</select>
+
+<div [ngPlural]="valor">
+<ng-template ngPluralCase="=1">
+    <h1 ngClass="text-danger"> texto rojo</h1>
+    <h1 ngClass="text-success">texto verde</h1>
+</ng-template>
+<ng-template ngPluralCase="=2" #template1>
+    <h1 ngClass="text-warning"> texto amarillo</h1>
+    <h1 ngClass="text-info">texto azul</h1>
+</ng-template>
+<ng-template ngPluralCase="=3">
+    <h1 [ngStyle]="{'color':'#fABADA'}">texto rosa</h1>
+    <h1 [ngStyle]="{'color':'#cacaca'}">color gris</h1>
+</ng-template>
+
+
+</div>
+valor: <input type="text" [(ngModel)]="valor">
+<br>
+aqui container <br>
+<div ngClass="mt-4 p-5 bg-danger text-white rounded">
+    <ng-container *ngTemplateOutlet="template1"></ng-container>
+</div>
+
+<div appMiDirectiva></div>
+
+<img appMiDirectivaEstructural width="200" height="100" src="https://media.maximilianojabugo.com/media/catalog/product/cache/4867832e91593742c10676c2b278b456/0/5/0.jpg" >
+
+<input type="text" [(ngModel)]="texto" /><br />
+<h1 [ngStyle]="{ color: '#fabada' }">{{ texto }}</h1>
+<h1>{{ nombreCorto }}</h1>
+<h1>{{ nombreLargo }}</h1>
+<h1>{{ capital }}</h1>
+<h1 *ngIf="valorParaIf">valor en true</h1>
+<button (click)="cambiar()">cambiar</button>
+<h2>{{ valorParaIf }}</h2>
+<ol>
+  <li *ngFor="let frontera of fronteras">{{ frontera }}</li>
+</ol>
+
+<div [ngSwitch]="valor">
+  <h1 *ngSwitchCase="1">el valor es uno</h1>
+  <h1 *ngSwitchCase="2">el valor es dos</h1>
+  <h1 *ngSwitchCase="3">el valor es tres</h1>
+</div>
