@@ -1,4 +1,4 @@
-<h1 ngClass="text-success">primer-componente works!</h1>
+<h1 ngClass="text-success">Paises</h1>
 
 continente:<select (change)="rellenaPaises()" [(ngModel)]="continente">
   <option value="0" disabled>Selecciona Continente....</option>
@@ -7,12 +7,46 @@ continente:<select (change)="rellenaPaises()" [(ngModel)]="continente">
   </option>
 </select>
 Pais:
-<select>
+<select (change)="getCountryInfo()" [(ngModel)]="countrySelected">
   <option value="0">Selecciona pais....</option>
   <option value="{{ pais }}" *ngFor="let pais of paises">{{ pais }}</option>
 </select>
 
-<div [ngPlural]="valor">
+<div class="container" *ngIf="countryInfo">
+  <img style="width: 300px;" [src]="countryInfo.flags.png">
+  <img style="width: 300px;" [src]="countryInfo.coatOfArms.svg">
+  <h2>Datos generales:</h2>
+  <ul>
+    <li><b>Nombre común: </b> {{ countryInfo.name.common }}</li>
+    <li><b>Nombre oficial: </b> {{ countryInfo.name.official }}</li>
+    <li><b>Nombre nativo común: </b> {{ countryInfo.name.nativeName.spa.common }}</li>
+    <li><b>Nombre nativo oficial: </b> {{ countryInfo.name.nativeName.spa.official }}</li>
+    <li><b>Capital: </b> {{ countryInfo.capital }}</li>
+    <li><b>Área: </b> {{ countryInfo.area }}</li>
+    <li><b>Población: </b> {{ countryInfo.population }}</li>
+  </ul>
+</div>
+
+<div *ngIf="bordersCommons">
+  <h2>Datos geográficos:</h2>
+  <h3>Fronteras:</h3>
+  <ul>
+    <li *ngFor="let item of bordersCommons">
+    {{ item }}
+    </li>
+  </ul>
+</div>
+
+<!-- <div *ngIf="countryInfo">
+  <h2 [ngStyle]="{'color':'#fabada'}">Traducciones:</h2>
+  <ul>
+    <li *ngFor="let item of countryInfo.translations | keyvalue">
+      {{ item.key }}: {{ item.value['official'] }}
+    </li>
+  </ul>
+</div> -->
+
+<!-- <div [ngPlural]="valor">
 <ng-template ngPluralCase="=1">
     <h1 ngClass="text-danger"> texto rojo</h1>
     <h1 ngClass="text-success">texto verde</h1>
@@ -55,4 +89,4 @@ aqui container <br>
   <h1 *ngSwitchCase="1">el valor es uno</h1>
   <h1 *ngSwitchCase="2">el valor es dos</h1>
   <h1 *ngSwitchCase="3">el valor es tres</h1>
-</div>
+</div> -->

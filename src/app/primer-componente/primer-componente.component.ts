@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { PaisesService } from '../servicios/paises.service';
 import { Valores } from '../interfaces';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-primer-componente',
   templateUrl: './primer-componente.component.html',
   styleUrls: ['./primer-componente.component.css'],
-}) 
+})
 export class PrimerComponenteComponent implements OnInit {
   texto: string = 'federico';
   nombreCorto: string = '';
@@ -20,6 +21,16 @@ export class PrimerComponenteComponent implements OnInit {
   continente: string;
   valores:Array<Valores>=[]
   valor:number=2;
+
+  countryInfo: any = '';
+  bordersCommons: string[] = []
+  valueForIf: boolean = false;
+  regions: string[] = ["europe", "asia", "africa", "americas", "oceania"];
+  regionSelected: string = '0';
+  countrySelected: string = '0'
+  countries: string[] = [];
+
+
   constructor(private service: PaisesService) {
     this.continente = '0';
   }
@@ -72,5 +83,35 @@ export class PrimerComponenteComponent implements OnInit {
           this.paises.push(pais.name.common);
         });
       });
+  }
+
+  /**
+  * Function to get country info
+  */
+   getCountryInfo(): void {
+    this.service.getDatos(`https://restcountries.com/v3.1/name/${this.countrySelected}`)
+    .pipe(
+      first(),
+    )
+    .subscribe((response: any) => {
+      this.countryInfo = response[0];
+      //this.translations = Object.keys(response[0].translations);
+      this.getBorders(response[0].borders)
+    });
+  }
+
+  /**
+  * Function to get traductions
+  */
+  getBorders(borders: string[]): void {
+    borders.forEach((border: string) => {
+      this.service.getDatos('https://restcountries.com/v3.1/alpha/' + border )
+      .pipe(
+        first(),
+      )
+      .subscribe((response: any) => {
+        this.bordersCommons.push(response[0].name.common);
+      });
+    });
   }
 }
