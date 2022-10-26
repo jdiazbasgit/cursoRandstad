@@ -8,7 +8,7 @@ export class MiDirectivaDirective {
   constructor(private el:ElementRef,render:Renderer2) { 
     let h2 = document.createElement('h2');
     h2.innerHTML="soy un nuevo título h2";
-    h2.classList.add("text-danger");
+    h2.classList.add("text-danger"); 
     
     render.appendChild(el.nativeElement, h2)
     
