@@ -21,6 +21,7 @@ export class PrimerComponenteComponent implements OnInit {
   continente: string;
   valores: Array<Valores> = [];
   valor: number = 2;
+  
   constructor(private service: PaisesService) {
     this.continente = '0';
   }
@@ -30,7 +31,13 @@ export class PrimerComponenteComponent implements OnInit {
       this.service
         .getDatos(`https://restcountries.com/v3.1/name/${this.dato}`)
         .subscribe((response: any) => {
-          alert(response[0].name.official);
+          
+          Object.entries(response[0].translations).forEach(traduccion=>{
+            //console.log(Object.keys(traduccion))
+            //console.log(Object.values(traduccion)[0])
+            let objeto:any=Object.values(traduccion)[1]
+            console.log(Object.values(traduccion)[0]+" - "+Object.values(objeto)[0])
+          })
         });
     }
   }
