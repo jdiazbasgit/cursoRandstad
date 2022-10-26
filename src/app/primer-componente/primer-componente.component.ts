@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleStrategy } from '@angular/router';
+
 import { PaisesService } from '../servicios/paises.service';
 import { Valores } from '../interfaces';
 
@@ -7,7 +7,7 @@ import { Valores } from '../interfaces';
   selector: 'app-primer-componente',
   templateUrl: './primer-componente.component.html',
   styleUrls: ['./primer-componente.component.css'],
-})
+}) 
 export class PrimerComponenteComponent implements OnInit {
   texto: string = 'federico';
   nombreCorto: string = '';
