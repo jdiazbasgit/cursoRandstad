@@ -1,0 +1,19 @@
+<h2 style="margin:0; font-size:15px">compo: datos-geográficos</h2>
+<div class="countryCard">
+    <div class="fronteras">
+        <h3>Fronteras:</h3>
+        <ul>
+            <li *ngFor="let frontera of fronteras"><h3>{{frontera}}</h3></li>
+        </ul>
+    </div>
+    <div class="banderas">
+        <div class="bandera">
+            <h2>Bandera:</h2>
+            <img [src]="urlFlag" alt="Bandera">
+        </div>
+        <div class="escudo">
+            <h2>Escudo:</h2>
+            <img [src]="urlCoat" alt="Escudo">
+        </div>
+    </div>
+</div>

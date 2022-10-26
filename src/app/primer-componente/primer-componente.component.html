@@ -1,0 +1,65 @@
+<h1 ngClass="text-success" style="color: #ff0000">primer-componente works!</h1>
+
+continente:<select [(ngModel)]="continente" (change)="rellenaPaises()">
+    <option value="0" disabled>--- Selecciona continente ---</option>
+    <option value="{{continente}}" *ngFor="let continente of continentes">{{continente}}</option>
+</select>
+
+Pais: <select>
+    <option value="0" disabled>--- Selecciona país ---</option>
+    <option value="{{pais}}" *ngFor="let pais of paises">{{pais}}</option>
+</select><br><br><br>
+
+<div [ngPlural]="valor">
+    <ng-template ngPluralCase="=1">
+        <h1 ngClass="text-danger">Texto rojo (text-danger)</h1>
+        <h1 ngClass="text-success">Texto verde (text-success)</h1>
+    </ng-template>
+    <ng-template ngPluralCase="=2" #template1>
+        <h1 ngClass="text-warning">Texto amarillo (text-warning)</h1>
+        <h1 ngClass="text-info">Texto azul (text-info)</h1>
+    </ng-template>
+    <ng-template  ngPluralCase="=3">
+        <h1 [ngStyle]="{'color':'#fabada'}">Texto rosa con [ngStyle]</h1>
+        <h1 [ngStyle]="{'color':'#cacaca'}">Texto gris con [ngStyle]</h1>
+    </ng-template>
+</div>
+
+<div class="mt-4 p-5 bg-primary text-white rounded">
+    <h3>jumbotron</h3>
+    <ng-container *ngTemplateOutlet="template1"></ng-container>
+</div>
+
+<div appMiDirectiva></div>
+<img appMiDirectivaEstructural height="100px" src="https://media.maximilianojabugo.com/media/catalog/product/cache/4867832e91593742c1xx0676c2b278b456/0/5/0503.jpg">
+
+
+<!-- <input type="text" [(ngModel)]="texto"><br>
+<h2 ngClass="text-danger">{{texto}}</h2><br>
+<h2 [ngStyle]="{'color':'#fabada'}">{{nombreCorto}}</h2><br> -->
+<h2 *ngIf="valorParaIf">Se muestra si valorParaIf es true</h2><br>
+<button (click)="cambiar()">Cambiar</button><h2>{{valorParaIf}}</h2>
+
+<ol>
+    <li *ngFor="let frontera of fronteras">
+        {{frontera}}
+    </li>
+</ol>
+
+
+
+valor: <input type="text" [(ngModel)]="valor">
+<div [ngSwitch]="valor">
+    <h3 *ngSwitchCase="1">
+        El valor es 1
+    </h3>
+    <h3 *ngSwitchCase="2">
+        El valor es 2
+    </h3>
+    <h3 *ngSwitchCase="3">
+        El valor es 3
+    </h3>
+    <h3 *ngSwitchDefault>
+        Valor por defecto
+    </h3>
+</div>
