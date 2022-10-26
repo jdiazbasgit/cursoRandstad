@@ -1,1 +1,6 @@
-<app-primer-componente></app-primer-componente>
+<select [(ngModel)]="pais">
+    <option value="0" disabled>Selecciona...</option>
+    <option value="spain">españa</option>7
+    <option value="france">francia</option>
+</select>
+<app-primer-componente [pais]=pais></app-primer-componente>

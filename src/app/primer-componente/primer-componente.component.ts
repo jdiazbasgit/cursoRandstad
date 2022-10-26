@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { PaisesService } from '../servicios/paises.service';
 import { Valores } from '../interfaces';
@@ -7,8 +7,9 @@ import { Valores } from '../interfaces';
   selector: 'app-primer-componente',
   templateUrl: './primer-componente.component.html',
   styleUrls: ['./primer-componente.component.css'],
-}) 
+})
 export class PrimerComponenteComponent implements OnInit {
+  @Input('pais') dato: string | undefined;
   texto: string = 'federico';
   nombreCorto: string = '';
   nombreLargo: string = '';
@@ -18,16 +19,26 @@ export class PrimerComponenteComponent implements OnInit {
   regiones: Array<string> = ['europe', 'asia', 'africa', 'americas', 'oceania'];
   paises: Array<string> = [];
   continente: string;
-  valores:Array<Valores>=[]
-  valor:number=2;
+  valores: Array<Valores> = [];
+  valor: number = 2;
   constructor(private service: PaisesService) {
     this.continente = '0';
   }
 
+  ngOnChanges() {
+    if (this.dato != '0') {
+      this.service
+        .getDatos(`https://restcountries.com/v3.1/name/${this.dato}`)
+        .subscribe((response: any) => {
+          alert(response[0].name.official);
+        });
+    }
+  }
+
   ngOnInit(): void {
-    let valor1:Valores={id:1,texto:"valor1"}
-    let valor2:Valores={id:2,texto:"valor2"}
-    let valor3:Valores={id:3,texto:"valor3"}
+    let valor1: Valores = { id: 1, texto: 'valor1' };
+    let valor2: Valores = { id: 2, texto: 'valor2' };
+    let valor3: Valores = { id: 3, texto: 'valor3' };
 
     this.service
       .getDatos('https://restcountries.com/v3.1/name/spain')
