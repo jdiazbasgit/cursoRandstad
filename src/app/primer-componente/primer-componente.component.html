@@ -12,23 +12,20 @@ Pais:
   <option value="{{ pais }}" *ngFor="let pais of paises">{{ pais }}</option>
 </select>
 
-<div class="container" *ngIf="countryInfo">
+<div class="container mt-4" *ngIf="countryInfo">
   <img style="width: 300px;" [src]="countryInfo.flags.png">
   <img style="width: 300px;" [src]="countryInfo.coatOfArms.svg">
   <h2>Datos generales:</h2>
   <ul>
     <li><b>Nombre común: </b> {{ countryInfo.name.common }}</li>
     <li><b>Nombre oficial: </b> {{ countryInfo.name.official }}</li>
-    <li><b>Nombre nativo común: </b> {{ countryInfo.name.nativeName.spa.common }}</li>
-    <li><b>Nombre nativo oficial: </b> {{ countryInfo.name.nativeName.spa.official }}</li>
     <li><b>Capital: </b> {{ countryInfo.capital }}</li>
     <li><b>Área: </b> {{ countryInfo.area }}</li>
     <li><b>Población: </b> {{ countryInfo.population }}</li>
   </ul>
 </div>
 
-<div *ngIf="bordersCommons">
-  <h2>Datos geográficos:</h2>
+<div class="container mt-4" *ngIf="bordersCommons && countryInfo.borders ">
   <h3>Fronteras:</h3>
   <ul>
     <li *ngFor="let item of bordersCommons">
@@ -37,14 +34,30 @@ Pais:
   </ul>
 </div>
 
-<!-- <div *ngIf="countryInfo">
-  <h2 [ngStyle]="{'color':'#fabada'}">Traducciones:</h2>
-  <ul>
-    <li *ngFor="let item of countryInfo.translations | keyvalue">
-      {{ item.key }}: {{ item.value['official'] }}
-    </li>
-  </ul>
-</div> -->
+<div class="container" style="margin-left: 0;" *ngIf="countryInfo && translations.length > 0">
+  <h2>Traducciones:</h2>
+    <div *ngFor="let item of translations; let i = index">
+      <div class="container mt-3">
+        <a
+          href="#List-{{ i }}"
+          class="btn btn-primary"
+          data-bs-toggle="collapse"
+          data-bs-placement="right"
+          title="Idioma: {{ translationsKeys[i] }}"
+          >
+           {{ item.official }}
+        </a>
+        <div *ngIf="!loadingLangs && langs" id="List-{{ i }}" class="collapse">
+          <div *ngIf="langs[i].length == 0">
+            No hay resultados
+          </div>
+          <div *ngFor="let lang of langs[i]">
+            <li>{{ lang }}</li>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
 <!-- <div [ngPlural]="valor">
 <ng-template ngPluralCase="=1">

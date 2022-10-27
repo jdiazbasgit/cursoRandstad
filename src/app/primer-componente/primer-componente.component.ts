@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaisesService } from '../servicios/paises.service';
 import { Valores } from '../interfaces';
 import { first } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-primer-componente',
@@ -29,45 +30,48 @@ export class PrimerComponenteComponent implements OnInit {
   regionSelected: string = '0';
   countrySelected: string = '0'
   countries: string[] = [];
-
+  langs: any[] = [];
+  translations: any[] = [];
+  translationsKeys: any[] = [];
+  loadingLangs: boolean = false;
 
   constructor(private service: PaisesService) {
     this.continente = '0';
   }
 
   ngOnInit(): void {
-    let valor1:Valores={id:1,texto:"valor1"}
-    let valor2:Valores={id:2,texto:"valor2"}
-    let valor3:Valores={id:3,texto:"valor3"}
+    // let valor1:Valores={id:1,texto:"valor1"}
+    // let valor2:Valores={id:2,texto:"valor2"}
+    // let valor3:Valores={id:3,texto:"valor3"}
 
-    this.service
-      .getDatos('https://restcountries.com/v3.1/name/spain')
-      .subscribe((response: any) => {
-        console.log('llamada con httpClient:' + response[0].name.common);
-        this.nombreCorto = response[0].name.common;
-      });
+    // this.service
+    //   .getDatos('https://restcountries.com/v3.1/name/spain')
+    //   .subscribe((response: any) => {
+    //     console.log('llamada con httpClient:' + response[0].name.common);
+    //     this.nombreCorto = response[0].name.common;
+    //   });
 
-    this.service
-      .getDatosFetch('https://restcountries.com/v3.1/name/spain')
-      .then((datos: any) => {
-        console.log('llamada con fetch:' + datos[0].name.official);
-        this.nombreLargo = datos[0].name.official;
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+    // this.service
+    //   .getDatosFetch('https://restcountries.com/v3.1/name/spain')
+    //   .then((datos: any) => {
+    //     console.log('llamada con fetch:' + datos[0].name.official);
+    //     this.nombreLargo = datos[0].name.official;
+    //   })
+    //   .catch((error: any) => {
+    //     console.log(error);
+    //   });
 
-    this.service
-      .getDatosAxios('https://restcountries.com/v3.1/name/spain')
-      .then((response: any) => {
-        console.log(response.data[0].translations.ara.official);
-        this.capital = response.data[0].translations.jpn.official;
-      });
-    this.service
-      .getDatos('https://restcountries.com/v3.1/name/france')
-      .subscribe((response: any) => {
-        this.fronteras = response[0].borders;
-      });
+    // this.service
+    //   .getDatosAxios('https://restcountries.com/v3.1/name/spain')
+    //   .then((response: any) => {
+    //     console.log(response.data[0].translations.ara.official);
+    //     this.capital = response.data[0].translations.jpn.official;
+    //   });
+    // this.service
+    //   .getDatos('https://restcountries.com/v3.1/name/france')
+    //   .subscribe((response: any) => {
+    //     this.fronteras = response[0].borders;
+    //   });
   }
 
   cambiar() {
@@ -94,9 +98,14 @@ export class PrimerComponenteComponent implements OnInit {
       first(),
     )
     .subscribe((response: any) => {
-      this.countryInfo = response[0];
-      //this.translations = Object.keys(response[0].translations);
-      this.getBorders(response[0].borders)
+      this.loadingLangs = true;
+      this.countryInfo = response[0] as any;
+      if (response[0].borders) {
+        this.getBorders(response[0].borders)
+      }
+      this.translations = Object.values(response[0].translations);
+      this.translationsKeys = Object.keys(response[0].translations);
+      this.getLangs(response[0].translations)
     });
   }
 
@@ -114,4 +123,27 @@ export class PrimerComponenteComponent implements OnInit {
       });
     });
   }
+
+  /**
+  * Function to get langs
+  */
+   getLangs(langs: any): void {
+    this.langs = [];
+    Object.keys(langs).forEach((lang: any, index) => {
+      this.langs[index] = [];
+      this.service.getDatos(`https://restcountries.com/v3.1/lang/${lang}`)
+        .pipe(
+          first(),
+        )
+        .subscribe((response: any) => {
+          response.forEach((country: any) => {
+            this.langs[index].push(country.name.official)
+          });
+        },
+        (res: HttpErrorResponse) => this.langs[index] = []
+        );
+    });
+    this.loadingLangs = false;
+    console.log(this.langs)
+  };
 }
