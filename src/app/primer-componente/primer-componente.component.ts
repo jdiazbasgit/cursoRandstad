@@ -144,15 +144,17 @@ export class PrimerComponenteComponent implements OnInit {
         .pipe(
           first(),
         )
-        .subscribe((response: any) => {
-          this.languages[index] = response[0].languages[lang];
-
-          response.forEach((country: any) => {
+        .subscribe({
+          next: (response: any) => {
+            this.languages[index] = response[0].languages[lang];
+            response.forEach((country: any) => {
             this.langs[index].push(country.name.official)
-          });
-        },
-        (res: HttpErrorResponse) => this.langs[index] = []
-        );
+            });
+          },
+          error: (err: any) => {
+            this.langs[index] = [];
+          }
+        });
     });
 
     this.loadingLangs = false;
