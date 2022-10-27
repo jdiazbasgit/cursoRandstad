@@ -15,7 +15,11 @@ export class PaisesService {
 
   getDatosFetch(url:string){
     return new Promise((resolve,reject)=>{
-      fetch(url).then(response=>response.json())
+      fetch(url).then(response=>{
+        console.log(response)
+        return response.json()
+        
+      })
       .then(datos=>resolve(datos)).catch(error=>reject(error));
     })
   }

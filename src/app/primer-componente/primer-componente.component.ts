@@ -57,6 +57,7 @@ export class PrimerComponenteComponent implements OnInit {
     this.service
       .getDatosFetch('https://restcountries.com/v3.1/name/spain')
       .then((datos: any) => {
+       
         console.log('llamada con fetch:' + datos[0].name.official);
         this.nombreLargo = datos[0].name.official;
       })

@@ -13,31 +13,29 @@ Pais:
 </select>
 
 <div [ngPlural]="valor">
-<ng-template ngPluralCase="=1">
-    <h1 ngClass="text-danger"> texto rojo</h1>
+  <ng-template ngPluralCase="=1">
+    <h1 ngClass="text-danger">texto rojo</h1>
     <h1 ngClass="text-success">texto verde</h1>
-</ng-template>
-<ng-template ngPluralCase="=2" #template1>
-    <h1 ngClass="text-warning"> texto amarillo</h1>
+  </ng-template>
+  <ng-template ngPluralCase="=2" #template1>
+    <h1 ngClass="text-warning">texto amarillo</h1>
     <h1 ngClass="text-info">texto azul</h1>
-</ng-template>
-<ng-template ngPluralCase="=3">
-    <h1 [ngStyle]="{'color':'#fABADA'}">texto rosa</h1>
-    <h1 [ngStyle]="{'color':'#cacaca'}">color gris</h1>
-</ng-template>
-
-
+  </ng-template>
+  <ng-template ngPluralCase="=3">
+    <h1 [ngStyle]="{ color: '#fABADA' }">texto rosa</h1>
+    <h1 [ngStyle]="{ color: '#cacaca' }">color gris</h1>
+  </ng-template>
 </div>
-valor: <input type="text" [(ngModel)]="valor">
-<br>
-aqui container <br>
+valor: <input type="text" [(ngModel)]="valor" />
+<br />
+aqui container <br />
 <div ngClass="mt-4 p-5 bg-danger text-white rounded">
-    <ng-container *ngTemplateOutlet="template1"></ng-container>
+  <ng-container *ngTemplateOutlet="template1"></ng-container>
 </div>
 
 <div appMiDirectiva></div>
 
-<img appMiDirectivaEstructural width="200" height="100" src="https://0.jpg" >
+<img appMiDirectivaEstructural width="200" height="100" src="https://0.jpg" />
 
 <input type="text" [(ngModel)]="texto" /><br />
 <h1 [ngStyle]="{ color: '#fabada' }">{{ texto }}</h1>
@@ -56,3 +54,11 @@ aqui container <br>
   <h1 *ngSwitchCase="2">el valor es dos</h1>
   <h1 *ngSwitchCase="3">el valor es tres</h1>
 </div>
+
+<nav>
+  <a routerLink="uno/spain">pulsa uno</a><br />
+  <a routerLink="dos">pulsa dos</a>
+</nav>
+
+<router-outlet></router-outlet>
+<br><br><br><br><br><br>
