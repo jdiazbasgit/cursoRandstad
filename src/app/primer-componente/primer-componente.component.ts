@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { PaisesService } from '../servicios/paises.service';
-import { Valores } from '../interfaces';
+import { Language, Valores } from '../interfaces';
 import { first } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -31,9 +31,9 @@ export class PrimerComponenteComponent implements OnInit {
   countrySelected: string = '0'
   countries: string[] = [];
   langs: any[] = [];
-  translations: any[] = [];
-  translationsKeys: any[] = [];
-  languages: any[] = [];
+  translations: Language[] = [];
+  translationsKeys: string[] = [];
+  languages: string[] = [];
   loadingLangs: boolean = false;
 
   constructor(private service: PaisesService) {
@@ -98,7 +98,7 @@ export class PrimerComponenteComponent implements OnInit {
   /**
   * Function to get country info
   */
-   getCountryInfo(): void {
+  getCountryInfo(): void {
     this.countryInfo = [];
     this.translations = [];
     this.service.getDatos(`https://restcountries.com/v3.1/name/${this.countrySelected}`)
@@ -113,7 +113,7 @@ export class PrimerComponenteComponent implements OnInit {
       }
       this.translations = Object.values(response[0].translations);
       this.translationsKeys = Object.keys(response[0].translations);
-      this.getLangs(response[0].translations)
+      this.getLangs(this.translationsKeys)
     });
   }
 
@@ -135,9 +135,10 @@ export class PrimerComponenteComponent implements OnInit {
   /**
   * Function to get langs
   */
-   getLangs(langs: any): void {
+  getLangs(langs: any): void {
     this.langs = [];
-    Object.keys(langs).forEach((lang: any, index) => {
+
+    langs.forEach((lang: string, index: number) => {
       this.langs[index] = [];
       this.service.getDatos(`https://restcountries.com/v3.1/lang/${lang}`)
         .pipe(
@@ -145,6 +146,7 @@ export class PrimerComponenteComponent implements OnInit {
         )
         .subscribe((response: any) => {
           this.languages[index] = response[0].languages[lang];
+
           response.forEach((country: any) => {
             this.langs[index].push(country.name.official)
           });
@@ -152,6 +154,7 @@ export class PrimerComponenteComponent implements OnInit {
         (res: HttpErrorResponse) => this.langs[index] = []
         );
     });
+
     this.loadingLangs = false;
     console.log(this.langs)
     console.log(this.languages)

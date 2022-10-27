@@ -31,7 +31,7 @@
   <h3>Fronteras:</h3>
   <ul>
     <li *ngFor="let item of bordersCommons">
-    {{ item }}
+      {{ item }}
     </li>
   </ul>
 </div>
@@ -45,17 +45,16 @@
           class="btn btn-primary"
           data-bs-toggle="collapse"
           data-bs-placement="right"
-          title="Idioma: {{ languages[i] ? languages[i] : translationsKeys[i] }}"
-          >
-           {{ item.official }}
+          title="Idioma: {{ languages[i] ? languages[i] : translationsKeys[i] }}">
+          {{ item.official }}
         </a>
         <div *ngIf="!loadingLangs && langs" id="List-{{ i }}" class="collapse">
           <div *ngIf="langs[i].length == 0">
             No hay resultados
           </div>
-          <div *ngFor="let lang of langs[i]">
-            <li>{{ lang }}</li>
-          </div>
+          <li *ngFor="let lang of langs[i]">
+            {{ lang }}
+          </li>
         </div>
       </div>
     </div>
