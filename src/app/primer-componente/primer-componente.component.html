@@ -1,21 +1,23 @@
-<h1 ngClass="text-success">Paises</h1>
+<h1>Paises</h1>
 
-continente:<select (change)="rellenaPaises()" [(ngModel)]="continente">
+<span>Continente:</span>
+<select style="margin-left: 10px; text-transform: capitalize;" (change)="rellenaPaises()" [(ngModel)]="continente">
   <option value="0" disabled>Selecciona Continente....</option>
   <option value="{{ continente }}" *ngFor="let continente of regiones">
     {{ continente }}
   </option>
 </select>
-Pais:
-<select (change)="getCountryInfo()" [(ngModel)]="countrySelected">
+<span style="margin-left: 15px;">País:</span>
+<select style="margin-left: 10px;" (change)="getCountryInfo()" [(ngModel)]="countrySelected">
   <option value="0">Selecciona pais....</option>
   <option value="{{ pais }}" *ngFor="let pais of paises">{{ pais }}</option>
 </select>
 
-<div class="container mt-4" *ngIf="countryInfo">
-  <img style="width: 300px;" [src]="countryInfo.flags.png">
-  <img style="width: 300px;" [src]="countryInfo.coatOfArms.svg">
-  <h2>Datos generales:</h2>
+<h2 class="container mt-4" style="margin-top: 20px;" *ngIf="countrySelected !=='0'"> {{ countrySelected }}</h2>
+<div class="container mt-4" *ngIf="countryInfo.length != 0">
+  <img style="height: 300px;" [src]="countryInfo.flags.png">
+  <img style="height: 300px; margin-left: 50px;" [src]="countryInfo.coatOfArms.svg">
+  <h2 style="margin-top: 20px;">Datos generales:</h2>
   <ul>
     <li><b>Nombre común: </b> {{ countryInfo.name.common }}</li>
     <li><b>Nombre oficial: </b> {{ countryInfo.name.official }}</li>
@@ -25,7 +27,7 @@ Pais:
   </ul>
 </div>
 
-<div class="container mt-4" *ngIf="bordersCommons && countryInfo.borders ">
+<div class="container mt-3" *ngIf="bordersCommons && countryInfo.borders ">
   <h3>Fronteras:</h3>
   <ul>
     <li *ngFor="let item of bordersCommons">
@@ -43,7 +45,7 @@ Pais:
           class="btn btn-primary"
           data-bs-toggle="collapse"
           data-bs-placement="right"
-          title="Idioma: {{ translationsKeys[i] }}"
+          title="Idioma: {{ languages[i] ? languages[i] : translationsKeys[i] }}"
           >
            {{ item.official }}
         </a>

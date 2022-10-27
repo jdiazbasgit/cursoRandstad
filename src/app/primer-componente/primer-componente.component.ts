@@ -33,6 +33,7 @@ export class PrimerComponenteComponent implements OnInit {
   langs: any[] = [];
   translations: any[] = [];
   translationsKeys: any[] = [];
+  languages: any[] = [];
   loadingLangs: boolean = false;
 
   constructor(private service: PaisesService) {
@@ -79,6 +80,11 @@ export class PrimerComponenteComponent implements OnInit {
   }
 
   rellenaPaises() {
+    this.countrySelected = '0';
+    this.paises = [];
+    this.countryInfo = [];
+    this.translations = [];
+
     this.service
       .getDatos(`https://restcountries.com/v3.1/region/${this.continente}`)
       .subscribe((response: any) => {
@@ -93,6 +99,8 @@ export class PrimerComponenteComponent implements OnInit {
   * Function to get country info
   */
    getCountryInfo(): void {
+    this.countryInfo = [];
+    this.translations = [];
     this.service.getDatos(`https://restcountries.com/v3.1/name/${this.countrySelected}`)
     .pipe(
       first(),
@@ -136,6 +144,7 @@ export class PrimerComponenteComponent implements OnInit {
           first(),
         )
         .subscribe((response: any) => {
+          this.languages[index] = response[0].languages[lang];
           response.forEach((country: any) => {
             this.langs[index].push(country.name.official)
           });
@@ -145,5 +154,6 @@ export class PrimerComponenteComponent implements OnInit {
     });
     this.loadingLangs = false;
     console.log(this.langs)
+    console.log(this.languages)
   };
 }
