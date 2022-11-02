@@ -11,6 +11,7 @@ import { UnoComponent } from './uno/uno.component';
 import { DosComponent } from './dos/dos.component';
 import { RouterModule } from '@angular/router';
 import { rutas } from './routes';
+import { MiPipePipe } from './mi-pipe.pipe';
 
 
 
@@ -22,6 +23,7 @@ import { rutas } from './routes';
     MiDirectivaEstructuralDirective,
     UnoComponent,
     DosComponent,
+    MiPipePipe,
     
   ],
   imports: [

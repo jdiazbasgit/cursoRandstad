@@ -1,5 +1,23 @@
 <h1 ngClass="text-success">primer-componente works!</h1>
+<h1>numeros en ingles</h1>
+<ul>
+  <li *ngFor="let numero of numeros">
+    {{ numero | miPipe: "ingles" }}
+  </li>
+</ul>
+<h1>numeros en portugues</h1>
 
+<ul>
+  <li *ngFor="let numero of numeros">
+    {{numero | miPipe:'portugues'}}
+  </li>
+</ul>
+<h1>numeros en español</h1>
+<ul>
+  <li *ngFor="let numero of numeros">
+    {{numero | miPipe:'spain'}}
+  </li>
+</ul>
 continente:<select (change)="rellenaPaises()" [(ngModel)]="continente">
   <option value="0" disabled>Selecciona Continente....</option>
   <option value="{{ continente }}" *ngFor="let continente of regiones">
@@ -56,10 +74,10 @@ aqui container <br />
 </div>
 
 <nav>
-  <a routerLink="uno/{{continente}}">España</a><br />
-  
+  <a routerLink="uno/{{ continente }}">España</a><br />
+
   <a routerLink="dos">pulsa dos</a>
 </nav>
 
 <router-outlet></router-outlet>
-<br><br><br><br><br><br>
+<br /><br /><br /><br /><br /><br />

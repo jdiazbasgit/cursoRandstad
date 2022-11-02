@@ -23,7 +23,7 @@ export class PrimerComponenteComponent implements OnInit {
   continente: string;
   valores: Array<Valores> = [];
   valor: number = 2;
-  
+  numeros:number[]=[1,2,3,4,5,6,7]
   constructor(private service: PaisesService, private rutaActiva:ActivatedRoute) {
     this.continente = '0';
   }
