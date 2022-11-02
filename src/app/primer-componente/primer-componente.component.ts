@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { PaisesService } from '../servicios/paises.service';
 import { Valores } from '../interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-primer-componente',
@@ -10,6 +11,7 @@ import { Valores } from '../interfaces';
 })
 export class PrimerComponenteComponent implements OnInit {
   @Input('pais') dato: string | undefined;
+  paisRuta:string=""
   texto: string = 'federico';
   nombreCorto: string = '';
   nombreLargo: string = '';
@@ -22,14 +24,15 @@ export class PrimerComponenteComponent implements OnInit {
   valores: Array<Valores> = [];
   valor: number = 2;
   
-  constructor(private service: PaisesService) {
+  constructor(private service: PaisesService, private rutaActiva:ActivatedRoute) {
     this.continente = '0';
   }
 
   ngOnChanges() {
+    this.paisRuta=this.rutaActiva.snapshot.params['pais']
     if (this.dato != '0') {
       this.service
-        .getDatos(`https://restcountries.com/v3.1/name/${this.dato}`)
+        .getDatos(`https://restcountries.com/v3.1/name/${this.rutaActiva}`)
         .subscribe((response: any) => {
           
           Object.entries(response[0].translations).forEach(traduccion=>{
