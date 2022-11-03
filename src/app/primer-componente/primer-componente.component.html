@@ -1,10 +1,30 @@
 <h1 ngClass="text-success">primer-componente works!</h1>
+
+<h1>{{texto | uppercase}}</h1>
+
+<h1>{{texto | slice:3:5 | uppercase}}</h1>
+
+<h1>{{fecha | date:'dd-MM-yy'}}</h1>
+
+<h1>{{moneda | currency:'EUR'}}</h1>
+<h1>{{moneda | number: '2.3-3'}}</h1>
+
+<h1>{{texto | mayusculas:2:7:5:7}}</h1>
+
+
+
+<h1>{{texto | mayusculas:2:5:7:5}}</h1>
+
+<h1>{{suma()}}</h1>
 <h1>numeros en ingles</h1>
 <ul>
   <li *ngFor="let numero of numeros">
-    {{ numero | miPipe: "ingles" }}
+    {{ numero | miPipe: "ingles" :"dfsdf"}}
   </li>
 </ul>
+
+
+
 <h1>numeros en portugues</h1>
 
 <ul>
@@ -18,6 +38,18 @@
     {{numero | miPipe:'spain'}}
   </li>
 </ul>
+
+<h1>idioma desconocido</h1>
+<ul>
+  <li *ngFor="let numero of numeros">
+    {{numero | miPipe:'alemania'}}
+  </li>
+</ul>
+
+<h1>ningun idioma</h1>
+{{1 | miPipe:''}}
+
+<br>
 continente:<select (change)="rellenaPaises()" [(ngModel)]="continente">
   <option value="0" disabled>Selecciona Continente....</option>
   <option value="{{ continente }}" *ngFor="let continente of regiones">

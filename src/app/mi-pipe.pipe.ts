@@ -4,9 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'miPipe',
 })
 export class MiPipePipe implements PipeTransform {
-  transform(value: number, args: string): string {
-    if (args != '') {
-      if (args == 'ingles') {
+  transform(value: number, ...args: string[]): string {
+    if (args[0] != '') {
+      if (args[0] == 'ingles') {
         switch (value) {
           case 1: return 'one';
           case 2: return 'two';
@@ -17,7 +17,7 @@ export class MiPipePipe implements PipeTransform {
           case 7: return 'seven'; 
         }
       }
-      if(args=='portugues'){
+      if(args[0]=='portugues'){
         switch (value) {
           case 1: return 'um';
           case 2: return 'dois';
@@ -28,7 +28,7 @@ export class MiPipePipe implements PipeTransform {
           case 7: return 'sete';                        
         }        
       }
-      if(args=='spain'){
+      if(args[0]=='spain'){
         switch (value) {
           case 1: return 'uno';
           case 2: return 'dos';

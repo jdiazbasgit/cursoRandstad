@@ -12,6 +12,7 @@ import { DosComponent } from './dos/dos.component';
 import { RouterModule } from '@angular/router';
 import { rutas } from './routes';
 import { MiPipePipe } from './mi-pipe.pipe';
+import { MayusculasPipe } from './mayusculas.pipe';
 
 
 
@@ -24,6 +25,7 @@ import { MiPipePipe } from './mi-pipe.pipe';
     UnoComponent,
     DosComponent,
     MiPipePipe,
+    MayusculasPipe,
     
   ],
   imports: [

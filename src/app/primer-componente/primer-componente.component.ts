@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { PaisesService } from '../servicios/paises.service';
 import { Valores } from '../interfaces';
 import { ActivatedRoute } from '@angular/router';
+import { NumberSymbol } from '@angular/common';
 
 @Component({
   selector: 'app-primer-componente',
@@ -23,6 +24,8 @@ export class PrimerComponenteComponent implements OnInit {
   continente: string;
   valores: Array<Valores> = [];
   valor: number = 2;
+  fecha:Date= new Date()
+  moneda:number=35.7895
   numeros:number[]=[1,2,3,4,5,6,7]
   constructor(private service: PaisesService, private rutaActiva:ActivatedRoute) {
     this.continente = '0';
@@ -45,6 +48,13 @@ export class PrimerComponenteComponent implements OnInit {
     }
   }
 
+  suma( ...numeros:number[]){
+    let salida=0
+    numeros.forEach(element => {
+      salida+=element;
+    });
+    return salida;
+  }
   ngOnInit(): void {
     let valor1: Valores = { id: 1, texto: 'valor1' };
     let valor2: Valores = { id: 2, texto: 'valor2' };
