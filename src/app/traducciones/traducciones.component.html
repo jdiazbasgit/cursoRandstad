@@ -1,12 +1,13 @@
 <h2 style="margin:0; font-size:15px">compo: traducciones</h2>
-<div class="countryCard">
-    <div class="traduccionesCont">
-        <h3>Traducciones:</h3>
-        <ul>
-            <li *ngFor="let traduccion in officials">
-                <h2>traduccion.name</h2>
-            </li>
-        </ul>
-        
+
+<div *ngFor="let traduccion of traducciones; let i = index">
+    <button type="button" class="btn btn-primary" data-bs-toggle="collapse" [attr.data-bs-target]="'#Lista-'+i">{{traduccion.official}}</button>
+    <div id="Lista-{{i}}" class="collapse">
+        <div *ngIf="langs[i].length == 0">
+            No hay resultados
+          </div>
+          <li *ngFor="let lang of langs[i]">
+            {{ lang }}
+          </li>
     </div>
 </div>

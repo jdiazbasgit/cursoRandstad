@@ -11,7 +11,8 @@ import { DatosGeneralesComponent } from './datos-generales/datos-generales.compo
 import { DatosGeograficosComponent } from './datos-geograficos/datos-geograficos.component';
 import { TraduccionesComponent } from './traducciones/traducciones.component';
 import { MiDirectivaDirective } from './directivas/mi-directiva.directive';
-import { MiDirectivaEstructuralDirective } from './directivas/mi-directiva-estructural.directive'
+import { MiDirectivaEstructuralDirective } from './directivas/mi-directiva-estructural.directive';
+import { PaisesInfoComponent } from './paises-info/paises-info.component'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MiDirectivaEstructuralDirective } from './directivas/mi-directiva-estru
     DatosGeograficosComponent,
     TraduccionesComponent,
     MiDirectivaDirective,
-    MiDirectivaEstructuralDirective
+    MiDirectivaEstructuralDirective,
+    PaisesInfoComponent
   ],
   imports: [
     BrowserModule,

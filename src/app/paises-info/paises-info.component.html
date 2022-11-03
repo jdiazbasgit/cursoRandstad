@@ -1,0 +1,16 @@
+<h1 ngClass="text-success">Información países</h1><br>
+
+Continente:<select [(ngModel)]="continente" (change)="rellenaPaises()">
+    <option value="0" disabled>--- Selecciona continente ---</option>
+    <option value="{{continente}}" *ngFor="let continente of continentes">{{continente}}</option>
+</select>
+
+Pais: <select [(ngModel)]="pais">
+    <option value="0" disabled>--- Selecciona país ---</option>
+    <option value="{{pais}}" *ngFor="let pais of paises">{{pais}}</option>
+</select><br><br><br>
+
+<app-datos-generales [paisForInfo]=pais></app-datos-generales>
+<app-datos-geograficos [paisForInfo]=pais></app-datos-geograficos>
+<app-traducciones [paisForInfo]=pais></app-traducciones>
+
