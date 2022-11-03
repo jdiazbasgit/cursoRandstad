@@ -7,6 +7,10 @@ import { PrimerComponenteComponent } from './primer-componente/primer-componente
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MiDirectivaDirective } from './mi-directiva.directive';
 import { MiDirectivaEstructuralDirective } from './mi-directiva-estructural.directive';
+import { DosComponent } from './dos/dos.component';
+import { UnoComponent } from './uno/uno.component';
+import { RouterModule } from '@angular/router';
+import { rutas } from './routes';
 
 
 
@@ -16,12 +20,15 @@ import { MiDirectivaEstructuralDirective } from './mi-directiva-estructural.dire
     PrimerComponenteComponent,
     MiDirectivaDirective,
     MiDirectivaEstructuralDirective,
-    
+    UnoComponent,
+    DosComponent
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(rutas)
   ],
   providers: [],
   bootstrap: [AppComponent]
