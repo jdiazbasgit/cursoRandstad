@@ -8,65 +8,18 @@
   </option>
 </select>
 <span style="margin-left: 15px;">País:</span>
-<select style="margin-left: 10px;" (change)="getCountryInfo()" [(ngModel)]="countrySelected">
+<select style="margin-left: 10px;" [(ngModel)]="countrySelected">
   <option value="0">Selecciona pais....</option>
   <option value="{{ pais }}" *ngFor="let pais of paises">{{ pais }}</option>
-</select>
+</select><br><br>
+<h5 *ngIf="resultados">Ya ha buscado: {{ resultados }}</h5>
 
-<h2 class="container mt-4" style="margin-top: 20px;" *ngIf="countrySelected !=='0'"> {{ countrySelected }}</h2>
-<div class="container mt-4" *ngIf="countryInfo.length != 0">
-  <img style="height: 300px;" [src]="countryInfo.flags.png">
-  <img style="height: 300px; margin-left: 50px;" [src]="countryInfo.coatOfArms.svg">
-  <h2 style="margin-top: 20px;">Datos generales:</h2>
-  <ul>
-    <li><b>Nombre común: </b> {{ countryInfo.name.common }}</li>
-    <li><b>Nombre oficial: </b> {{ countryInfo.name.official }}</li>
-    <li><b>Capital: </b> {{ countryInfo.capital }}</li>
-    <li><b>Área: </b> {{ countryInfo.area }}</li>
-    <li><b>Población: </b> {{ countryInfo.population }}</li>
-  </ul>
-</div>
 
-<div class="container mt-3" *ngIf="bordersCommons && countryInfo.borders ">
-  <h3>Fronteras:</h3>
-  <ul>
-    <li *ngFor="let item of bordersCommons">
-      {{ item }}
-    </li>
-  </ul>
-</div>
-
-<div class="container" style="margin-left: 0;" *ngIf="countryInfo && translations.length > 0">
-  <h2>Traducciones:</h2>
-    <div *ngFor="let item of translations; let i = index">
-      <div class="container mt-3">
-        <a
-          href="#List-{{ i }}"
-          class="btn btn-primary"
-          data-bs-toggle="collapse"
-          data-bs-placement="right"
-          title="Idioma: {{ languages[i] ? languages[i] : translationsKeys[i] }}">
-          {{ item.official }}
-        </a>
-        <div *ngIf="!loadingLangs && langs" id="List-{{ i }}" class="collapse">
-          <div *ngIf="langs[i].length == 0">
-            No hay resultados
-          </div>
-          <li *ngFor="let lang of langs[i]">
-            {{ lang }}
-          </li>
-        </div>
-      </div>
-    </div>
-</div>
-
-<nav>
-  <a routerLink="uno/spain">pulsa uno</a><br />
-  <a routerLink="dos">pulsa dos</a>
-</nav>
+<app-uno
+   [countrySelected]="countrySelected"
+   (resultado)="resultados=$event"></app-uno>
 
 <router-outlet></router-outlet>
-<br><br><br><br><br><br>
 
 <!-- <div [ngPlural]="valor">
 <ng-template ngPluralCase="=1">

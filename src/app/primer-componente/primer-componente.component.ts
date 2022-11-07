@@ -11,30 +11,18 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./primer-componente.component.css'],
 })
 export class PrimerComponenteComponent implements OnInit {
-  texto: string = 'federico';
-  nombreCorto: string = '';
-  nombreLargo: string = '';
-  capital: string = '';
-  valorParaIf: boolean = false;
-  fronteras: Array<string> = [];
+
   regiones: Array<string> = ['europe', 'asia', 'africa', 'americas', 'oceania'];
   paises: Array<string> = [];
   continente: string;
-  valores:Array<Valores>=[]
-  valor:number=2;
 
-  countryInfo: any = '';
-  bordersCommons: string[] = []
-  valueForIf: boolean = false;
+
+
   regions: string[] = ["europe", "asia", "africa", "americas", "oceania"];
   regionSelected: string = '0';
   countrySelected: string = '0'
-  countries: string[] = [];
-  langs: any[] = [];
-  translations: Language[] = [];
-  translationsKeys: string[] = [];
-  languages: string[] = [];
-  loadingLangs: boolean = false;
+
+  resultados: string = '';
 
   constructor(private service: PaisesService) {
     this.continente = '0';
@@ -75,15 +63,9 @@ export class PrimerComponenteComponent implements OnInit {
     //   });
   }
 
-  cambiar() {
-    this.valorParaIf = !this.valorParaIf;
-  }
-
   rellenaPaises() {
     this.countrySelected = '0';
     this.paises = [];
-    this.countryInfo = [];
-    this.translations = [];
 
     this.service
       .getDatos(`https://restcountries.com/v3.1/region/${this.continente}`)
@@ -94,71 +76,4 @@ export class PrimerComponenteComponent implements OnInit {
         });
       });
   }
-
-  /**
-  * Function to get country info
-  */
-  getCountryInfo(): void {
-    this.countryInfo = [];
-    this.translations = [];
-    this.service.getDatos(`https://restcountries.com/v3.1/name/${this.countrySelected}`)
-    .pipe(
-      first(),
-    )
-    .subscribe((response: any) => {
-      this.loadingLangs = true;
-      this.countryInfo = response[0] as any;
-      if (response[0].borders) {
-        this.getBorders(response[0].borders)
-      }
-      this.translations = Object.values(response[0].translations);
-      this.translationsKeys = Object.keys(response[0].translations);
-      this.getLangs(this.translationsKeys)
-    });
-  }
-
-  /**
-  * Function to get traductions
-  */
-  getBorders(borders: string[]): void {
-    borders.forEach((border: string) => {
-      this.service.getDatos('https://restcountries.com/v3.1/alpha/' + border )
-      .pipe(
-        first(),
-      )
-      .subscribe((response: any) => {
-        this.bordersCommons.push(response[0].name.common);
-      });
-    });
-  }
-
-  /**
-  * Function to get langs
-  */
-  getLangs(langs: any): void {
-    this.langs = [];
-
-    langs.forEach((lang: string, index: number) => {
-      this.langs[index] = [];
-      this.service.getDatos(`https://restcountries.com/v3.1/lang/${lang}`)
-        .pipe(
-          first(),
-        )
-        .subscribe({
-          next: (response: any) => {
-            this.languages[index] = response[0].languages[lang];
-            response.forEach((country: any) => {
-            this.langs[index].push(country.name.official)
-            });
-          },
-          error: (err: any) => {
-            this.langs[index] = [];
-          }
-        });
-    });
-
-    this.loadingLangs = false;
-    console.log(this.langs)
-    console.log(this.languages)
-  };
 }
